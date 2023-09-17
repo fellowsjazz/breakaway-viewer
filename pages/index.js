@@ -14,7 +14,7 @@ import {
   Image,
   Spinner,
   Center,
-  useMediaQuery
+  useMediaQuery,
 } from "@chakra-ui/react";
 import HighlightViewer from "../components/HighlightViewer";
 import { useEffect, useState } from "react";
@@ -173,7 +173,11 @@ export default function Home() {
       direction={"column"}
       overflowX={"clip"}
     >
-      <Flex justify={"space-between"} mx={"5%"} mt={isLargerThan900? "1%" : "5%"}>
+      <Flex
+        justify={"space-between"}
+        mx={"5%"}
+        mt={isLargerThan900 ? "1%" : "5%"}
+      >
         <Flex>
           <Input
             h={"24px"}
@@ -205,11 +209,6 @@ export default function Home() {
           >
             <Image src="polygon-matic-logo.png" h={"12px"} w={"20px"} />
           </Button>
-          {isLoading ? (
-            <Center>
-              <Spinner size={"sm"} color="white" />
-            </Center>
-          ) : null}
         </Flex>
         <Flex>
           <Button
@@ -239,7 +238,7 @@ export default function Home() {
         </Flex>
       </Flex>
 
-      <Flex borderBottom={"1px"} mt={isLargerThan900? "1%" : "5%"}/>
+      <Flex borderBottom={"1px"} mt={isLargerThan900 ? "1%" : "5%"} />
 
       <Flex
         direction={"column"}
@@ -251,6 +250,11 @@ export default function Home() {
           },
         }}
       >
+        {isLoading ? (
+          <Center>
+            <Spinner size={"sm"} color="white" />
+          </Center>
+        ) : null}
         {playerObjectArray &&
           playerObjectArray.map((item, index) => (
             <HighlightLineItem key={index} playerObject={item} />
