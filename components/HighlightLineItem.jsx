@@ -13,6 +13,7 @@ import {
   ModalHeader,
   ModalBody,
   ModalCloseButton,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import { axios } from "axios";
 import { BsInfoCircle, BsFillPlayFill } from "react-icons/bs";
@@ -30,6 +31,8 @@ export default function HighlightLineItem(props) {
   const [date, setDate] = useState();
   const [description, setDescription] = useState();
 
+  const [isLargerThan900] = useMediaQuery("(min-width: 900px)");
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
@@ -41,7 +44,6 @@ export default function HighlightLineItem(props) {
   };
 
   const playerObject = props.playerObject;
-
 
   useEffect(() => {
     setHighlightVideo(playerObject?.video);
@@ -60,6 +62,10 @@ export default function HighlightLineItem(props) {
     Limited: "rgba(196, 197, 202, .6)",
     Rare: "rgba(4, 33, 218, 0.3)",
     Epic: "rgba(90, 3, 187, 0.8)",
+    CoreFade: "rgba(128, 127, 128, 0.3)",
+    LimitedFade: "rgba(196, 197, 202, .6)",
+    RareFade: "rgba(4, 33, 218, 0.8)",
+    EpicFade: "rgba(128, 3, 187, 0.8)",
   };
 
   return (
@@ -75,7 +81,7 @@ export default function HighlightLineItem(props) {
         <ModalOverlay />
         <ModalContent backgroundColor={"#131313"} p={"0px"}>
           <Flex>
-          <HighlightViewer playerObject={playerObject} />
+            <HighlightViewer playerObject={playerObject} />
           </Flex>
         </ModalContent>
       </Modal>
@@ -87,31 +93,56 @@ export default function HighlightLineItem(props) {
         justify={"space-between"}
       >
         <Text color={"#FFFDF8"} fontSize={"12px"} w={"25%"}>
-          {player?.toUpperCase()}
-        </Text>
-        <Text color={"#FFFDF8"} fontSize={"12px"} w={"25%"}>
-          {set?.toUpperCase()}
-        </Text>
-        <Text color={"#FFFDF8"} fontSize={"12px"} w={"15%"}>
-          {edition}/{editionSize}
+          {isLargerThan900
+            ? player?.toUpperCase()
+            : player?.split(" ")[0].toUpperCase().charAt(0) +
+              "." +
+              player?.split(" ")[1].toUpperCase()}
         </Text>
 
-        <Text color={"#FFFDF8"} fontSize={"12px"} w={"10%"}>
-          {series?.toUpperCase()}
+        {isLargerThan900 ? (
+          <Text color={"#FFFDF8"} fontSize={"12px"} w={"25%"}>
+            {set?.toUpperCase()}
+          </Text>
+        ) : null}
+
+        <Text
+          color={"#FFFDF8"}
+          fontSize={"12px"}
+          minW={isLargerThan900 ? "15%" : "10%"}
+        >
+          {isLargerThan900 ? `${edition} / ${editionSize}` : `#${edition}`}
         </Text>
 
-        <Text color={"#FFFDF8"} fontSize={"12px"} w={"10%"} overflowWrap={"break-word"}>
+        <Text
+          color={"#FFFDF8"}
+          fontSize={"12px"}
+          minW={isLargerThan900 ? "10%" : "5%"}
+        >
+          {isLargerThan900
+            ? series?.toUpperCase()
+            : series?.substring(0, 1) + series?.substring(7)}
+        </Text>
+
+        <Text
+          color={rarityColors[rarity + "Fade"]}
+          fontSize={"12px"}
+          w={isLargerThan900 ? "10%" : "15%"}
+          overflowWrap={"break-word"}
+        >
           {rarity?.toUpperCase()}
         </Text>
-
+        
         <Flex>
-          <Tooltip label={description} bg={"#131313"} borderRadius={"10px"}>
-            <Center>
-              <span>
-                <BsInfoCircle color="white" size={"10px"} />
-              </span>
-            </Center>
-          </Tooltip>
+          {isLargerThan900 ? (
+            <Tooltip label={description} bg={"#131313"} borderRadius={"10px"}>
+              <Center>
+                <span>
+                  <BsInfoCircle color="white" size={"10px"} />
+                </span>
+              </Center>
+            </Tooltip>
+          ) : null}
 
           <IconButton
             icon={<BsFillPlayFill />}

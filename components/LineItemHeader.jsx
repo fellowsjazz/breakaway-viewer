@@ -1,17 +1,10 @@
-import React from 'react'
-import { Flex,Text, } from '@chakra-ui/react'
+import React from "react";
+import { Flex, Text, useMediaQuery } from "@chakra-ui/react";
 
 export default function LineItemHeader() {
+  const [isLargerThan900] = useMediaQuery("(min-width: 900px)");
   return (
-    <Flex
-      
-      borderRadius={"10px"}
-      flexDirection={"column"}
-      my={"6px"}
-      mx={"5%"}
-    >
-     
-
+    <Flex borderRadius={"10px"} flexDirection={"column"} my={"6px"} mx={"5%"}>
       <Flex
         flexDirection={"row"}
         px={"5%"}
@@ -22,9 +15,11 @@ export default function LineItemHeader() {
         <Text color={"#FFFDF8"} fontSize={"12px"} w={"25%"}>
           Player
         </Text>
-        <Text color={"#FFFDF8"} fontSize={"12px"} w={"25%"}>
-          Set
-        </Text>
+        {isLargerThan900 ? (
+          <Text color={"#FFFDF8"} fontSize={"12px"} w={"25%"}>
+            Set
+          </Text>
+        ) : null}
         <Text color={"#FFFDF8"} fontSize={"12px"} w={"15%"}>
           Edition
         </Text>
@@ -37,12 +32,8 @@ export default function LineItemHeader() {
           Rarity
         </Text>
 
-        <Flex w={"4%"}>
-          
-
-        
-        </Flex>
+        <Flex w={"4%"}></Flex>
       </Flex>
     </Flex>
-  )
+  );
 }

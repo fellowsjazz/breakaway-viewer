@@ -14,6 +14,7 @@ import {
   Image,
   Spinner,
   Center,
+  useMediaQuery
 } from "@chakra-ui/react";
 import HighlightViewer from "../components/HighlightViewer";
 import { useEffect, useState } from "react";
@@ -32,6 +33,7 @@ export default function Home() {
   //address of CEO of sweet 0xA1Ab6c3fBcA8cDCBAD677840406137FDe1e3fc5e
   const [addressInput, setAddressInput] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const [isLargerThan900] = useMediaQuery("(min-width: 900px)");
 
   //isloading checker
   useEffect(() => {
@@ -171,7 +173,7 @@ export default function Home() {
       direction={"column"}
       overflowX={"clip"}
     >
-      <Flex justify={"space-between"} mx={"5%"} mt={"1%"}>
+      <Flex justify={"space-between"} mx={"5%"} mt={isLargerThan900? "1%" : "5%"}>
         <Flex>
           <Input
             h={"24px"}
@@ -187,8 +189,9 @@ export default function Home() {
             size={"xs"}
             mx={"3px"}
             onClick={handleAddressSubmit}
+            w={"70px"}
           >
-            Submit
+            Search
           </Button>
           <Button
             as={"a"}
@@ -215,7 +218,7 @@ export default function Home() {
             color={"white"}
             size={"xs"}
           >
-            Rarity Sort
+            Rarity
           </Button>
           <Button
             onClick={handleEditionSort}
@@ -223,7 +226,7 @@ export default function Home() {
             color={"white"}
             size={"xs"}
           >
-            Edition Sort
+            Edition
           </Button>
           <Button
             onClick={handleAlphabeticalSort}
@@ -231,12 +234,12 @@ export default function Home() {
             color={"white"}
             size={"xs"}
           >
-            Alpha Sort
+            Alpha
           </Button>
         </Flex>
       </Flex>
 
-      <LineItemHeader />
+      <Flex borderBottom={"1px"} mt={isLargerThan900? "1%" : "5%"}/>
 
       <Flex
         direction={"column"}
