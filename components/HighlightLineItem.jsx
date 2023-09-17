@@ -92,7 +92,12 @@ export default function HighlightLineItem(props) {
         py={"3px"}
         justify={"space-between"}
       >
-        <Text color={"#FFFDF8"} fontSize={"12px"} w={"25%"}>
+        <Text
+          color={"#FFFDF8"}
+          fontSize={"12px"}
+          w={"25%"}
+          whiteSpace={"nowrap"} // Set white-space to nowrap
+        >
           {isLargerThan900
             ? player?.toUpperCase()
             : player?.split(" ")[0].toUpperCase().charAt(0) +
@@ -132,7 +137,7 @@ export default function HighlightLineItem(props) {
         >
           {rarity?.toUpperCase()}
         </Text>
-        
+
         <Flex>
           {isLargerThan900 ? (
             <Tooltip label={description} bg={"#131313"} borderRadius={"10px"}>
