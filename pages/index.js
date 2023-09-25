@@ -28,7 +28,7 @@ export default function Home() {
   const [queryData, setQueryData] = useState();
   const [ipfsArray, setIpfsArray] = useState();
   const [playerObjectArray, setPlayerObjectArray] = useState([]);
-  const [userAddress, setUserAddress] = useState();
+  const [userAddress, setUserAddress] = useState("0x64376dbf55c08378192C81Aa5792769cE16CabF1");
   //address of CEO of sweet 0xA1Ab6c3fBcA8cDCBAD677840406137FDe1e3fc5e
   //my address 0x64376dbf55c08378192C81Aa5792769cE16CabF1
   const [addressInput, setAddressInput] = useState();
