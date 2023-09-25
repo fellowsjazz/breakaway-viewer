@@ -22,27 +22,25 @@ import HighlightLineItem from "../components/HighlightLineItem";
 import DataFetcher from "../components/DataFetcher";
 import LineItemHeader from "../components/LineItemHeader";
 import { BsFillPencilFill } from "react-icons/bs";
-import {useRouter} from 'next/router'
-
-
+import { useRouter } from "next/router";
 
 export default function Home() {
   const [queryData, setQueryData] = useState();
   const [ipfsArray, setIpfsArray] = useState();
   const [playerObjectArray, setPlayerObjectArray] = useState([]);
-  const [userAddress, setUserAddress] = useState(
-    "0x64376dbf55c08378192C81Aa5792769cE16CabF1"
-  );
+  const [userAddress, setUserAddress] = useState();
   //address of CEO of sweet 0xA1Ab6c3fBcA8cDCBAD677840406137FDe1e3fc5e
+  //my address 0x64376dbf55c08378192C81Aa5792769cE16CabF1
   const [addressInput, setAddressInput] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [isLargerThan900] = useMediaQuery("(min-width: 900px)");
-  const router = useRouter()
+  const router = useRouter();
 
   //isloading checker
   useEffect(() => {
     console.log("isloading: ", isLoading);
-    setUserAddress(router.userAddress)
+    setUserAddress(router.query.userAddress);
+    console.log('router address: ', router.query.userAddress)
   }, [isLoading]);
 
   //getting the
@@ -187,7 +185,7 @@ export default function Home() {
         <Flex>
           <Input
             h={"24px"}
-            placeholder={"0x64376dbf55c08378192C81Aa5792769cE16CabF1"}
+            placeholder={userAddress}
             value={addressInput}
             fontSize={"12px"}
             color={"white"}
