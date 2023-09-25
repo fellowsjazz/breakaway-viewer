@@ -22,6 +22,9 @@ import HighlightLineItem from "../components/HighlightLineItem";
 import DataFetcher from "../components/DataFetcher";
 import LineItemHeader from "../components/LineItemHeader";
 import { BsFillPencilFill } from "react-icons/bs";
+import {useRouter} from 'next/router'
+
+
 
 export default function Home() {
   const [queryData, setQueryData] = useState();
@@ -34,10 +37,12 @@ export default function Home() {
   const [addressInput, setAddressInput] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [isLargerThan900] = useMediaQuery("(min-width: 900px)");
+  const router = useRouter()
 
   //isloading checker
   useEffect(() => {
     console.log("isloading: ", isLoading);
+    setUserAddress(router.userAddress)
   }, [isLoading]);
 
   //getting the
@@ -157,6 +162,7 @@ export default function Home() {
 
   function handleAddressSubmit(e) {
     setUserAddress(addressInput);
+    router.push(`/?userAddress=${addressInput}`);
     console.log("user address changed to: ", addressInput);
   }
 
@@ -181,7 +187,8 @@ export default function Home() {
         <Flex>
           <Input
             h={"24px"}
-            defaultValue={"0x64376dbf55c08378192C81Aa5792769cE16CabF1"}
+            placeholder={"0x64376dbf55c08378192C81Aa5792769cE16CabF1"}
+            value={addressInput}
             fontSize={"12px"}
             color={"white"}
             _placeholder={{ color: "white", fontSize: "12px" }}
